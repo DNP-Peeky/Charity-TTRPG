@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>DNP Charity TTRPG Widget</title>
+<title>DNP Charity TTRPG Show Widget</title>
 <style>
 :root {
   --bg: #0b0b0d;
@@ -62,16 +62,24 @@ a { color: var(--gold); text-decoration: none; }
 .hero { text-align: center; margin-bottom: 36px; }
 .hero h1 { font-size: 36px; margin: 0 0 10px; letter-spacing: 0.01em; }
 .hero p { color: var(--muted); font-size: 15px; max-width: 560px; margin: 0 auto; line-height: 1.5; }
-.stats-strip { display: flex; justify-content: center; gap: 24px; margin: 34px 0 56px; flex-wrap: wrap; }
-.stats-strip .stat {
-  text-align: center; cursor: pointer; min-width: 160px;
+/* Home splash page: three big "choice" boxes (Cast / Charities / Shows)
+   instead of defaulting straight into one section. Established 2026-08-08 --
+   the old approach (landing directly on whichever section came first
+   alphabetically) read as arbitrary and made the landing page just a plain
+   grid of logos; this gives visitors an actual choice up front, with each
+   box's own count folded in so it doubles as the old stats-strip. */
+.home-choice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; max-width: 980px; margin: 40px auto 0; }
+@media (max-width: 760px) { .home-choice-grid { grid-template-columns: 1fr; max-width: 420px; } }
+.home-choice-card {
+  text-align: center; cursor: pointer; padding: 46px 28px;
   background: linear-gradient(160deg, var(--panel) 0%, var(--panel-2) 100%);
-  border: 1px solid var(--border); border-radius: 18px; padding: 24px 36px;
+  border: 1px solid var(--border); border-radius: 24px;
   transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
 }
-.stats-strip .stat:hover { transform: translateY(-3px); border-color: var(--gold-soft); box-shadow: 0 12px 28px var(--shadow-hover); }
-.stats-strip .stat .num { font-size: 44px; font-weight: 800; color: var(--gold); line-height: 1; }
-.stats-strip .stat .label { font-size: 12.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 10px; }
+.home-choice-card:hover { transform: translateY(-5px); border-color: var(--gold-soft); box-shadow: 0 18px 34px var(--shadow-hover); }
+.home-choice-num { font-size: 42px; font-weight: 800; color: var(--gold); line-height: 1; }
+.home-choice-label { font-size: 19px; font-weight: 700; color: var(--cream); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 12px; }
+.home-choice-desc { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 20px; }
 .card {
@@ -127,7 +135,7 @@ a { color: var(--gold); text-decoration: none; }
 .badge.upcoming { background: var(--upcoming-bg); border: 1px solid var(--upcoming-border); color: var(--upcoming-text); }
 
 section.panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; }
-section.panel h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-soft); margin: 0 0 18px; }
+section.panel h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-soft); margin: 0 0 18px; }
 .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
 .metric { background: var(--surface-tint); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
 .metric .platform { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 4px; }
@@ -244,25 +252,44 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
 .show-title-row { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
 .show-title-row h1 { font-size: 50px; line-height: 1.08; margin: 0; }
 .show-meta-date { color: var(--muted); font-size: 25px; font-weight: 600; }
-.show-meta-charity { color: var(--muted); font-size: 25px; }
+/* Shrunk from 25px -- long charity names (e.g. "St. Jude Children's Research
+   Hospital") were breaking out of the boxed header at the larger size now
+   that the pyramid layout's boxes are a fixed, narrower width. */
+.show-meta-charity { color: var(--muted); font-size: 18px; overflow-wrap: break-word; }
 .show-meta-charity a { color: var(--gold-soft); font-weight: 700; }
 .show-meta-amount { font-size: 36px; font-weight: 700; }
 .show-meta-amount .amt { color: var(--gold); }
 .meta-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.92em; }
-.show-meta-charity .meta-label, .show-meta-amount .meta-label { font-size: 0.45em; vertical-align: middle; }
-.participant-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 18px; }
+.show-meta-charity .meta-label { font-size: 0.62em; vertical-align: middle; }
+/* "Raised" sized close to the dollar amount itself (was a tiny 0.45em) so
+   the two read as one unit rather than a big number with a caption. */
+.show-meta-amount .meta-label { font-size: 0.7em; vertical-align: middle; color: var(--muted); font-weight: 600; margin-left: 2px; }
+/* Flex instead of a uniform grid so each participant's box can size to its
+   own name rather than every box sharing one fixed column width. A CSS grid
+   forces every cell to the same track width, which is what made a long
+   unbroken handle (e.g. "TormentedByGnomes", no spaces to wrap on) break
+   mid-word onto a second line. Flex + flex-wrap lets one box grow
+   horizontally to fit a long name while the rest stay their normal
+   compact size, still centered as a group -- established 2026-08-08,
+   general-purpose fix for any future long handle, not a one-off patch. */
+.participant-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
 .participant {
-  text-align: center; cursor: pointer; padding: 12px 8px; border-radius: 12px;
+  flex: 0 0 auto; min-width: 92px; max-width: 240px;
+  text-align: center; cursor: pointer; padding: 12px 14px; border-radius: 12px;
   border: 1px solid transparent; transition: border-color .15s ease, background .15s ease;
 }
 .participant:hover { border-color: var(--gold-soft); background: var(--surface-tint); }
 .participant-photo { width: 76px; height: 76px; border-radius: 50%; background: var(--photo-bg) top/cover no-repeat;
   border: 2px solid var(--border); margin: 0 auto 10px; }
-.participant-name { font-size: 13px; font-weight: 600; color: var(--cream); }
+/* Single line, box grows to fit (see .participant's max-width above) rather
+   than wrapping the name mid-word. text-overflow:ellipsis is only a safety
+   net for a name so long it'd hit the max-width cap -- shouldn't trigger for
+   any realistic handle. */
+.participant-name { font-size: 13px; font-weight: 600; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .participant-role { font-size: 10.5px; color: var(--gold-soft); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
 .participant-group + .participant-group { margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--border); }
 .participant-group-label {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-soft);
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-soft);
   margin-bottom: 14px; font-weight: 700;
 }
 
@@ -296,6 +323,11 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
    so the layout looks intentional either way. */
 .charity-detail-header { display: flex; align-items: center; gap: 26px; margin-bottom: 24px; flex-wrap: wrap; }
 .charity-detail-header .section-header { text-align: left; margin-bottom: 0; }
+/* Bigger than the shared .section-header h1 (30px) -- sized against the
+   longest charity name ("St. Jude Children's Research Hospital") as the
+   ceiling so it reads big without wrapping awkwardly next to the 140px
+   logo box; shorter names just look proportionally bolder. */
+.charity-detail-header h1 { font-size: 38px; }
 .charity-detail-logo {
   width: 140px; height: 140px; flex: 0 0 auto; border-radius: 20px;
   background: var(--photo-bg) center/contain no-repeat;
@@ -311,8 +343,8 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
 }
 .charity-detail-blurb { color: var(--muted); font-size: 14px; max-width: 640px; line-height: 1.5; margin-top: 6px; }
 .charity-detail-stats { display: flex; gap: 40px; margin-bottom: 30px; }
-.charity-detail-stats .stat .num { font-size: 26px; font-weight: 700; color: var(--gold); }
-.charity-detail-stats .stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.charity-detail-stats .stat .num { font-size: 34px; font-weight: 700; color: var(--gold); }
+.charity-detail-stats .stat .label { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
 /* Watch VOD button (pops the real YouTube/Twitch page open in its own
    window rather than embedding it -- see watchVod() below). Sized as a
@@ -335,20 +367,44 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
 </head>
 <body>
 <div class="top-nav">
-  <div class="brand" onclick="nav('charities-index-view')"><span class="mark">DNP</span><span class="title">DNP Charity TTRPG Widget</span></div>
+  <div class="brand" onclick="nav('home-view')"><span class="mark">DNP</span><span class="title">DNP Charity TTRPG Show Widget</span></div>
   <div class="nav-links">
+    <span class="nav-link" data-nav="directory-view" onclick="nav('directory-view')">Cast</span>
     <span class="nav-link" data-nav="charities-index-view" onclick="nav('charities-index-view')">Charities</span>
     <span class="nav-link" data-nav="shows-index-view" onclick="nav('shows-index-view')">Shows</span>
-    <span class="nav-link" data-nav="directory-view" onclick="nav('directory-view')">Talent</span>
-    <span class="back-link" data-target="charities-index-view" onclick="goBack()">← Back</span>
+    <span class="back-link" data-target="home-view" onclick="goBack()">← Back</span>
   </div>
 </div>
 
 <div class="container">
+  <div class="page-view" id="home-view">
+    <div class="hero">
+      <h1>DNP Charity TTRPG Show Widget</h1>
+      <p>Your home base for Do Not Peek's Charity TTRPG Shows. Choose where to start below.</p>
+    </div>
+    <div class="home-choice-grid">
+      <div class="home-choice-card" onclick="nav('directory-view')">
+        <div class="home-choice-num">20</div>
+        <div class="home-choice-label">Cast</div>
+        <div class="home-choice-desc">The VTuber and streaming talent behind every show.</div>
+      </div>
+      <div class="home-choice-card" onclick="nav('charities-index-view')">
+        <div class="home-choice-num">5</div>
+        <div class="home-choice-label">Charities</div>
+        <div class="home-choice-desc">The causes Do Not Peek's Charity TTRPG Shows have supported.</div>
+      </div>
+      <div class="home-choice-card" onclick="nav('shows-index-view')">
+        <div class="home-choice-num">10</div>
+        <div class="home-choice-label">Shows</div>
+        <div class="home-choice-desc">Every Charity TTRPG Show, start to finish.</div>
+      </div>
+    </div>
+  </div>
+
   <div class="page-view hidden" id="directory-view">
     <div class="section-header">
-      <h1>Talent</h1>
-      <p>Every talent member who's appeared on a Do Not Peek charity stream — browse the full roster and click anyone to see their metrics, shows, and art.</p>
+      <h1>Cast</h1>
+      <p>Do Not Peek's Charity TTRPG Shows are cast mostly with VTuber and streaming talent. Browse the full roster and click anyone to see their metrics, shows, and art.</p>
     </div>
     <div class="grid">
       <div class="card" onclick="nav('bio-ai-candii')">
@@ -358,7 +414,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
       <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/BubiVT')"></div>
       <div class="card-name-wrap"><div class="card-name">Bubi</div></div>
     </div><div class="card" onclick="nav('bio-froot')">
-      <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/LichVtuber')"></div>
+      <div class="card-photo" style="background-image:url('https://static.wikia.nocookie.net/virtualyoutuber/images/e/e9/Froot_2D_Model.jpg')"></div>
       <div class="card-name-wrap"><div class="card-name">Froot</div></div>
     </div><div class="card" onclick="nav('bio-geega')">
       <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/GeneralGEEGA')"></div>
@@ -418,7 +474,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   <div class="page-view hidden" id="shows-index-view">
     <div class="section-header">
       <h1>Shows</h1>
-      <p>Every Do Not Peek charity stream, in chronological order. Click a show for the full cast, the charity it benefited, the total raised, and a link to the VOD when one's available.</p>
+      <p>Do Not Peek's Charity TTRPG Shows, in chronological order. Click a show for the full cast, the charity it benefited, the total raised, and a link to watch the VOD.</p>
     </div>
     <div class="show-grid">
       <div class="show-card" onclick="nav('show-akashan-the-dread-carnival')">
@@ -485,18 +541,10 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
     </div>
   </div>
 
-  <div class="page-view" id="charities-index-view">
-    <div class="hero">
-      <h1>DNP Charity TTRPG Widget</h1>
-      <p>Your home base for every cause Do Not Peek has streamed for — see the charities, the shows that supported them, and the talent who made it happen. Browse Shows and Talent above for the full picture.</p>
-    </div>
-    <div class="stats-strip">
-      <div class="stat" onclick="nav('directory-view')"><div class="num">20</div><div class="label">Talent</div></div>
-      <div class="stat" onclick="nav('shows-index-view')"><div class="num">10</div><div class="label">Shows</div></div>
-      <div class="stat" onclick="nav('charities-index-view')"><div class="num">5</div><div class="label">Charities</div></div>
-    </div>
+  <div class="page-view hidden" id="charities-index-view">
     <div class="section-header">
-      <p>Every charity below links out to the shows that benefited it and the talent who took part.</p>
+      <h1>Charities</h1>
+      <p>Each charity below links out to the shows that benefited it and the cast who took part.</p>
     </div>
     <div class="charity-grid">
       <div class="charity-card" onclick="nav('charity-bcrf')">
@@ -505,7 +553,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
       <div class="charity-card-meta"><span><b>1</b> <span class="meta-label">shows</span></span><span><b>$101,000</b> <span class="meta-label">raised</span></span></div>
       
     </div><div class="charity-card" onclick="nav('charity-gamers-outreach')">
-      <div class="charity-card-logo" style="background-image:url('https://framerusercontent.com/images/zFciST4CtfUiw7J33JsX07FfXOo.png'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
+      <div class="charity-card-logo" style="background-image:url('https://framerusercontent.com/images/yGCf9zxjnXQ3DYZYWxRNMCWkwHg.png?width=1194&amp;height=454'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
       <div class="charity-card-name">Gamers Outreach</div>
       <div class="charity-card-meta"><span><b>4</b> <span class="meta-label">shows</span></span><span><b>$118,500</b> <span class="meta-label">raised</span></span></div>
       
@@ -515,12 +563,12 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
       <div class="charity-card-meta"><span><b>2</b> <span class="meta-label">shows</span></span><span><b>$109,000</b> <span class="meta-label">raised</span></span></div>
       
     </div><div class="charity-card" onclick="nav('charity-make-a-wish')">
-      <div class="charity-card-logo">No logo yet</div>
+      <div class="charity-card-logo" style="background-image:url('https://1000logos.net/wp-content/uploads/2025/02/Make-A-Wish-Emblem.png'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
       <div class="charity-card-name">Make-A-Wish</div>
       <div class="charity-card-meta"><span><b>2</b> <span class="meta-label">shows</span></span><span><b>$64,000</b> <span class="meta-label">raised</span></span></div>
       
     </div><div class="charity-card" onclick="nav('charity-st-jude-children-s-research-hospital')">
-      <div class="charity-card-logo" style="background-image:url('https://www.stjude.org/_jcr_content/image.img.800.high.jpg/1780328547772.jpg'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
+      <div class="charity-card-logo" style="background-image:url('https://stjude.cloud-cme.com/assets/stjude/images/SJ_Tag_H_C.png'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
       <div class="charity-card-name">St. Jude Children&#x27;s Research Hospital</div>
       <div class="charity-card-meta"><span><b>1</b> <span class="meta-label">shows</span></span><span><b>$41,000</b> <span class="meta-label">raised</span></span></div>
       
@@ -562,7 +610,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://hololist.net/wp-content/uploads/2022/06/bubi-portrait-66.jpg" alt="Bubi artwork" loading="lazy" onclick="openLightbox('https://hololist.net/wp-content/uploads/2022/06/bubi-portrait-66.jpg')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/3/38/Ironmouses_Mascot_Bubi_Chibi_Form_Thumb.jpg" alt="Bubi artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/3/38/Ironmouses_Mascot_Bubi_Chibi_Form_Thumb.jpg')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThZtwuN8umo3BHasM1l5eAbUlavBnoFa0WGFYovcrE0ySfuAF7mn_VCZo&amp;s=10" alt="Bubi artwork" loading="lazy" onclick="openLightbox('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThZtwuN8umo3BHasM1l5eAbUlavBnoFa0WGFYovcrE0ySfuAF7mn_VCZo&amp;s=10')"><img src="https://cdnb.artstation.com/p/assets/images/images/090/838/263/large/yoolie-bubi-image-render-4.webp?1755052205" alt="Bubi artwork" loading="lazy" onclick="openLightbox('https://cdnb.artstation.com/p/assets/images/images/090/838/263/large/yoolie-bubi-image-render-4.webp?1755052205')"></div></section>
 </div><div class="page-view hidden" id="bio-froot" data-parent="directory-view">
   <div class="bio-header">
-    <div><div class="bio-photo" style="background-image:url('https://unavatar.io/twitter/LichVtuber')" onclick="openLightbox('https://unavatar.io/twitter/LichVtuber')"></div></div>
+    <div><div class="bio-photo" style="background-image:url('https://static.wikia.nocookie.net/virtualyoutuber/images/e/e9/Froot_2D_Model.jpg')" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/e/e9/Froot_2D_Model.jpg')"></div></div>
     <div class="bio-intro">
       <h1>Froot</h1>
       <div class="bio-role">Player</div>
@@ -797,7 +845,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
       
     </div>
   </div>
-  <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/TimDownie1" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">52,300</div><div class="sub">followers</div></a></div><div class="metric"><a href="N/A" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">—</div><div class="sub">followers</div></a></div><div class="metric"><a href="N/A" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">None</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">1</div><div class="sub">1 as player · 0 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">$5,500</div><div class="sub">avg $5,500/show</div></div></div></section>
+  <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/TimDownie1" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">52,300</div><div class="sub">followers</div></a></div><div class="metric"><a href="N/A" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">-</div><div class="sub">followers</div></a></div><div class="metric"><a href="N/A" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">None</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">1</div><div class="sub">1 as player · 0 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">$5,500</div><div class="sub">avg $5,500/show</div></div></div></section>
   <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr><td>4/28/2026</td><td><a onclick="nav('show-one-night-in-daggerheart'); return false;" href="#">One Night in Daggerheart</a></td><td class="role-cell">Player</td><td>Make-A-Wish</td><td>$33,000</td></tr></table><div class="shows-total">Total raised across these shows: <b>$33,000</b></div></section>
   <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://m.media-amazon.com/images/M/MV5BMzcxOTg3ZjYtNGJkYS00YTdhLWFlYzMtZTNmNTJjZDk4Nzc0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Tim Downie artwork" loading="lazy" onclick="openLightbox('https://m.media-amazon.com/images/M/MV5BMzcxOTg3ZjYtNGJkYS00YTdhLWFlYzMtZTNmNTJjZDk4Nzc0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg')"><img src="https://www.blueskyautism.com/wp-content/uploads/2016/05/tim.jpg" alt="Tim Downie artwork" loading="lazy" onclick="openLightbox('https://www.blueskyautism.com/wp-content/uploads/2016/05/tim.jpg')"><img src="https://media.thepopverse.com/media/gale-in-baldurs-gate-3-cxolutliokhfvgukmt3jyrs1za.jpg" alt="Tim Downie artwork" loading="lazy" onclick="openLightbox('https://media.thepopverse.com/media/gale-in-baldurs-gate-3-cxolutliokhfvgukmt3jyrs1za.jpg')"><img src="https://m.media-amazon.com/images/M/MV5BMWViMDljNTMtMDlkMi00OGMyLThlNDctMTFlYzc4MzM1MGQzXkEyXkFqcGc@._V1_.jpg" alt="Tim Downie artwork" loading="lazy" onclick="openLightbox('https://m.media-amazon.com/images/M/MV5BMWViMDljNTMtMDlkMi00OGMyLThlNDctMTFlYzc4MzM1MGQzXkEyXkFqcGc@._V1_.jpg')"></div><p style="margin-top:12px"><a href="https://www.independenttalent.com/actors/tim-downie/" target="_blank" rel="noopener">→ Media kit / press page</a></p></section>
 </div><div class="page-view hidden" id="bio-tormentedbygnomes" data-parent="directory-view">
@@ -1309,7 +1357,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
         </div></div>
 </div><div class="page-view hidden" id="charity-gamers-outreach" data-parent="charities-index-view">
   <div class="charity-detail-header">
-    <div class="charity-detail-logo" style="cursor:zoom-in;background-image:url('https://framerusercontent.com/images/zFciST4CtfUiw7J33JsX07FfXOo.png'); background-size:contain; background-repeat:no-repeat; background-position:center;" onclick="openLightbox('https://framerusercontent.com/images/zFciST4CtfUiw7J33JsX07FfXOo.png'); event.stopPropagation();"></div>
+    <div class="charity-detail-logo" style="cursor:zoom-in;background-image:url('https://framerusercontent.com/images/yGCf9zxjnXQ3DYZYWxRNMCWkwHg.png?width=1194&amp;height=454'); background-size:contain; background-repeat:no-repeat; background-position:center;" onclick="openLightbox('https://framerusercontent.com/images/yGCf9zxjnXQ3DYZYWxRNMCWkwHg.png?width=1194&amp;height=454'); event.stopPropagation();"></div>
     <div class="section-header" style="margin-bottom:0;">
       <h1 style="margin-bottom:4px;">Gamers Outreach</h1>
       <p class="charity-detail-blurb">Empowers hospitalized children and families through play, providing gaming technology and software to healthcare facilities worldwide.</p>
@@ -1371,7 +1419,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
         </div></div>
 </div><div class="page-view hidden" id="charity-make-a-wish" data-parent="charities-index-view">
   <div class="charity-detail-header">
-    <div class="charity-detail-logo">No logo yet</div>
+    <div class="charity-detail-logo" style="cursor:zoom-in;background-image:url('https://1000logos.net/wp-content/uploads/2025/02/Make-A-Wish-Emblem.png'); background-size:contain; background-repeat:no-repeat; background-position:center;" onclick="openLightbox('https://1000logos.net/wp-content/uploads/2025/02/Make-A-Wish-Emblem.png'); event.stopPropagation();"></div>
     <div class="section-header" style="margin-bottom:0;">
       <h1 style="margin-bottom:4px;">Make-A-Wish</h1>
       <p class="charity-detail-blurb">Creates life-changing wishes for children with critical illnesses, giving them renewed strength while bringing families and communities together in support.</p>
@@ -1396,10 +1444,10 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
         </div></div>
 </div><div class="page-view hidden" id="charity-st-jude-children-s-research-hospital" data-parent="charities-index-view">
   <div class="charity-detail-header">
-    <div class="charity-detail-logo" style="cursor:zoom-in;background-image:url('https://www.stjude.org/_jcr_content/image.img.800.high.jpg/1780328547772.jpg'); background-size:contain; background-repeat:no-repeat; background-position:center;" onclick="openLightbox('https://www.stjude.org/_jcr_content/image.img.800.high.jpg/1780328547772.jpg'); event.stopPropagation();"></div>
+    <div class="charity-detail-logo" style="cursor:zoom-in;background-image:url('https://stjude.cloud-cme.com/assets/stjude/images/SJ_Tag_H_C.png'); background-size:contain; background-repeat:no-repeat; background-position:center;" onclick="openLightbox('https://stjude.cloud-cme.com/assets/stjude/images/SJ_Tag_H_C.png'); event.stopPropagation();"></div>
     <div class="section-header" style="margin-bottom:0;">
       <h1 style="margin-bottom:4px;">St. Jude Children&#x27;s Research Hospital</h1>
-      <p class="charity-detail-blurb">A leading pediatric research hospital treating childhood cancers and life-threatening diseases — families never receive a bill for treatment, travel, housing, or food.</p>
+      <p class="charity-detail-blurb">A leading pediatric research hospital treating childhood cancers and life-threatening diseases. Families never receive a bill for treatment, travel, housing, or food.</p>
     </div>
   </div>
   <div class="charity-detail-stats">
@@ -1416,7 +1464,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
 </div>
 </div>
 
-<footer class="site-footer">Do Not Peek Charity TTRPG Widget — compiled and cross-referenced from public sources (X/Twitter, Twitch, YouTube, Tiltify, official show pages) to spotlight Do Not Peek's charity TTRPG shows and the talent who've appeared on them. Not an official talent agency or statistics page. See something outdated or incorrect? Let us know at ttrpgwidget@dnpeek.com.</footer>
+<footer class="site-footer">Do Not Peek Charity TTRPG Show Widget. Compiled and cross-referenced from public sources (X/Twitter, Twitch, YouTube, Tiltify, official show pages) to spotlight Do Not Peek's charity TTRPG shows and the cast who've appeared on them. Not an official talent agency or statistics page. See something outdated or incorrect? Let us know at ttrpgwidget@dnpeek.com.</footer>
 
 <div class="detail-arrow detail-arrow-left" onclick="navAdjacent(-1)" title="Previous">&#8249;</div>
 <div class="detail-arrow detail-arrow-right" onclick="navAdjacent(1)" title="Next">&#8250;</div>
@@ -1431,7 +1479,7 @@ var TALENT_ORDER = ["ai-candii", "bubi", "froot", "geega", "grimmivt", "haruka-k
 var SHOW_ORDER = ["akashan-the-dread-carnival", "throne-of-heresy", "shipwrekt", "ghouls-geckos", "dice-hard", "by-the-light-of-the-golden-bough", "shipwrecked-2-buccaneer-bugaloo", "the-maltese-gecko", "death-in-the-death-house", "one-night-in-daggerheart"];
 var CHARITY_ORDER = ["bcrf", "gamers-outreach", "immune-deficiency-foundation", "make-a-wish", "st-jude-children-s-research-hospital"];
 
-var TOP_LEVEL = ["charities-index-view", "shows-index-view", "directory-view"];
+var TOP_LEVEL = ["home-view", "directory-view", "charities-index-view", "shows-index-view"];
 
 function safeSetHash(hash) {
   // Changing the URL (pushState or location.hash) throws a SecurityError in some
@@ -1465,23 +1513,25 @@ function nav(id) {
   if (isTopLevel) {
     back.classList.remove("show");
   } else {
-    var parent = target.getAttribute("data-parent") || "directory-view";
+    var parent = target.getAttribute("data-parent") || "home-view";
     back.setAttribute("data-target", parent);
     back.classList.add("show");
   }
-  var section = "directory-view";
+  // No nav-link is "active" on the home splash page itself -- section stays
+  // null there so none of the three tab links get the highlight.
+  var section = null;
   if (id === "shows-index-view" || id.indexOf("show-") === 0) { section = "shows-index-view"; }
   else if (id === "charities-index-view" || id.indexOf("charity-") === 0) { section = "charities-index-view"; }
   else if (id === "directory-view" || id.indexOf("bio-") === 0) { section = "directory-view"; }
   document.querySelectorAll(".nav-link").forEach(function(el) {
-    el.classList.toggle("active", el.getAttribute("data-nav") === section);
+    el.classList.toggle("active", section !== null && el.getAttribute("data-nav") === section);
   });
   var prefix = detailPrefixFor(id);
   document.querySelectorAll(".detail-arrow").forEach(function(el) {
     el.classList.toggle("show", !!prefix);
   });
   window.scrollTo(0, 0);
-  safeSetHash(id === "charities-index-view" ? "" : id);
+  safeSetHash(id === "home-view" ? "" : id);
 }
 
 function navAdjacent(delta) {
@@ -1497,11 +1547,11 @@ function navAdjacent(delta) {
 }
 function goBack() {
   var back = document.querySelector(".back-link");
-  nav(back.getAttribute("data-target") || "charities-index-view");
+  nav(back.getAttribute("data-target") || "home-view");
 }
 window.addEventListener("hashchange", function() {
   var hash = window.location.hash.replace("#", "");
-  nav(hash || "charities-index-view");
+  nav(hash || "home-view");
 });
 window.addEventListener("DOMContentLoaded", function() {
   var hash = window.location.hash.replace("#", "");
