@@ -7,26 +7,36 @@
 <title>DNP Charity Talent Pool</title>
 <style>
 :root {
-  --bg: #120e1c;
-  --bg-2: #1a1428;
-  --panel: #1d1730;
-  --panel-2: #241c3a;
-  --gold: #e3bd6d;
-  --gold-soft: #b99a5c;
-  --cream: #f2ece0;
-  --muted: #9c8fb8;
-  --border: #35294f;
-  --flag-bg: rgba(201,106,63,0.12);
-  --flag-border: #c96a3f;
-  --flag-text: #e8b48f;
-  --upcoming-bg: rgba(212,185,64,0.12);
-  --upcoming-border: #d4b940;
-  --upcoming-text: #eddb8a;
+  --bg: #0b0b0d;
+  --bg-2: #161618;
+  --bg-glow: #241012;
+  --panel: #18181b;
+  --panel-2: #222226;
+  --gold: #e0313f;
+  --gold-soft: #a8232e;
+  --cream: #f5f2f0;
+  --muted: #9a9599;
+  --border: #2c2a2d;
+  --nav-bg: rgba(11,11,13,0.9);
+  --photo-bg: #101012;
+  --surface-tint: rgba(255,255,255,0.04);
+  --pill-bg: rgba(30,18,19,0.85);
+  --pill-bg-hover: rgba(30,18,19,0.97);
+  --shadow-hover: rgba(0,0,0,.5);
+  --flag-bg: rgba(224,49,63,0.12);
+  --flag-border: #e0313f;
+  --flag-text: #f3a9ae;
+  --box-emphasis: #ffffff;
+  --upcoming-bg: rgba(224,49,63,0.12);
+  --upcoming-border: #e0313f;
+  --upcoming-text: #f3a9ae;
+  --upcoming-glow: rgba(224,49,63,0.16);
+  --upcoming-row-bg: rgba(224,49,63,0.08);
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  background: radial-gradient(ellipse 1200px 600px at 50% -10%, #2a2044 0%, var(--bg) 60%);
+  background: radial-gradient(ellipse 1200px 600px at 50% -10%, var(--bg-glow) 0%, var(--bg) 60%);
   color: var(--cream);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
@@ -36,7 +46,7 @@ a { color: var(--gold); text-decoration: none; }
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 32px; border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 20;
-  background: rgba(18, 14, 28, 0.9); backdrop-filter: blur(8px);
+  background: var(--nav-bg); backdrop-filter: blur(8px);
 }
 .brand { display: flex; align-items: baseline; gap: 10px; cursor: pointer; }
 .brand .mark { font-weight: 800; letter-spacing: 0.08em; color: var(--gold); font-size: 14px; }
@@ -63,14 +73,14 @@ a { color: var(--gold); text-decoration: none; }
   border: 1px solid var(--border); border-radius: 14px; overflow: hidden; position: relative;
   cursor: pointer; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
 }
-.card:hover { transform: translateY(-3px); border-color: var(--gold-soft); box-shadow: 0 12px 28px rgba(0,0,0,.45); }
+.card:hover { transform: translateY(-3px); border-color: var(--gold-soft); box-shadow: 0 12px 28px var(--shadow-hover); }
 .card.debut-card {
   border: 2px solid var(--upcoming-border);
-  box-shadow: 0 0 0 1px var(--upcoming-border), 0 12px 26px rgba(212,185,64,0.16);
+  box-shadow: 0 0 0 1px var(--upcoming-border), 0 12px 26px var(--upcoming-glow);
 }
 .card.debut-card:hover { border-color: var(--upcoming-border); }
 .card-photo {
-  width: 100%; aspect-ratio: 1/1; background: #0e0b16 top/cover no-repeat; position: relative;
+  width: 100%; aspect-ratio: 1/1; background: var(--photo-bg) top/cover no-repeat; position: relative;
   display: flex; align-items: center; justify-content: center;
   color: var(--muted); font-size: 11px; text-align: center; padding: 10px;
 }
@@ -87,7 +97,7 @@ a { color: var(--gold); text-decoration: none; }
 
 /* Bio view */
 .bio-header { display: grid; grid-template-columns: 260px 1fr; gap: 38px; margin-bottom: 40px; }
-.bio-photo { width: 100%; aspect-ratio: 1/1; border-radius: 16px; background: #0e0b16 top/cover no-repeat;
+.bio-photo { width: 100%; aspect-ratio: 1/1; border-radius: 16px; background: var(--photo-bg) top/cover no-repeat;
   border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
   color: var(--muted); font-size: 13px; text-align: center; padding: 20px;
   cursor: zoom-in; transition: border-color .15s ease; }
@@ -96,16 +106,16 @@ a { color: var(--gold); text-decoration: none; }
 .bio-role { color: var(--gold-soft); font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
 .social-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
 .social-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 20px;
-  border: 1px solid var(--border); background: rgba(255,255,255,0.03); font-size: 13px; color: var(--cream); }
+  border: 1px solid var(--border); background: var(--surface-tint); font-size: 13px; color: var(--cream); }
 .social-pill:hover { border-color: var(--gold-soft); text-decoration: none; }
 .pill-icon { opacity: .8; text-transform: uppercase; }
 .pill-stat b { color: var(--gold); font-weight: 700; }
 .pill-stat { color: var(--muted); margin-left: 4px; text-transform: uppercase; letter-spacing: 0.03em; }
-.notes-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-left: 3px solid var(--gold-soft);
+.notes-box { background: var(--surface-tint); border: 1px solid var(--border); border-left: 3px solid var(--gold-soft);
   border-radius: 8px; padding: 12px 16px; font-size: 13.5px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
 .flag-box { background: var(--flag-bg); border: 1px solid var(--flag-border); border-radius: 8px;
   padding: 12px 16px; font-size: 13px; color: var(--flag-text); margin-top: 12px; line-height: 1.5; }
-.flag-box b { color: #fff; }
+.flag-box b { color: var(--box-emphasis); }
 .badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
   padding: 3px 9px; border-radius: 20px; margin-left: 8px; vertical-align: middle; }
 .badge.upcoming { background: var(--upcoming-bg); border: 1px solid var(--upcoming-border); color: var(--upcoming-text); }
@@ -113,7 +123,7 @@ a { color: var(--gold); text-decoration: none; }
 section.panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; }
 section.panel h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-soft); margin: 0 0 18px; }
 .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
-.metric { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.metric { background: var(--surface-tint); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
 .metric .platform { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 4px; }
 .metric .value { font-size: 21px; font-weight: 700; color: var(--cream); }
 .metric .sub { font-size: 11px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -121,15 +131,15 @@ section.panel h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing:
 table.shows-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 table.shows-table th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em;
   color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border); }
-table.shows-table td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--cream); }
-table.shows-table tr.upcoming-row td { background: rgba(212, 185, 64, 0.07); }
+table.shows-table td { padding: 10px; border-bottom: 1px solid var(--border); color: var(--cream); }
+table.shows-table tr.upcoming-row td { background: var(--upcoming-row-bg); }
 table.shows-table td.role-cell { text-transform: uppercase; letter-spacing: 0.03em; font-size: 12px; color: var(--gold-soft); }
 .shows-total { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13.5px; color: var(--cream); text-align: right; }
 .shows-total b { color: var(--gold); font-size: 15px; }
 .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 @media (max-width: 640px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
 .gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: top; border-radius: 10px;
-  border: 1px solid var(--border); background: #0e0b16; cursor: zoom-in; transition: border-color .15s ease; }
+  border: 1px solid var(--border); background: var(--photo-bg); cursor: zoom-in; transition: border-color .15s ease; }
 .gallery img:hover { border-color: var(--gold-soft); }
 .gallery-empty { width: 100%; aspect-ratio: 4/3; border-radius: 10px; border: 1px dashed var(--border);
   display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 11.5px; text-align: center; }
@@ -140,7 +150,9 @@ table.shows-table td.role-cell { text-transform: uppercase; letter-spacing: 0.03
 }
 .lightbox img { max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
 .lightbox .lightbox-close {
-  position: absolute; top: 22px; right: 32px; color: var(--cream); font-size: 30px;
+  /* Fixed light color (not themed) -- the lightbox backdrop is always dark
+     regardless of site theme, so this needs to stay legible on both. */
+  position: absolute; top: 22px; right: 32px; color: #f5f2f0; font-size: 30px;
   cursor: pointer; line-height: 1; opacity: .8;
 }
 .lightbox .lightbox-close:hover { opacity: 1; }
@@ -148,14 +160,14 @@ table.shows-table td.role-cell { text-transform: uppercase; letter-spacing: 0.03
 .detail-arrow {
   position: fixed; top: 50%; transform: translateY(-50%); z-index: 50;
   width: 52px; height: 52px; border-radius: 50%;
-  background: rgba(29, 23, 48, 0.85); border: 1px solid var(--border);
+  background: var(--pill-bg); border: 1px solid var(--border);
   color: var(--gold); font-size: 26px; line-height: 1;
   display: none; align-items: center; justify-content: center;
   cursor: pointer; user-select: none;
   transition: border-color .15s ease, background .15s ease, transform .15s ease;
   backdrop-filter: blur(4px);
 }
-.detail-arrow:hover { border-color: var(--gold-soft); background: rgba(29, 23, 48, 0.97); }
+.detail-arrow:hover { border-color: var(--gold-soft); background: var(--pill-bg-hover); }
 .detail-arrow.show { display: flex; }
 .detail-arrow-left { left: 18px; }
 .detail-arrow-right { right: 18px; }
@@ -178,8 +190,8 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   border: 1px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer;
   transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
 }
-.show-card:hover { transform: translateY(-3px); border-color: var(--gold-soft); box-shadow: 0 12px 28px rgba(0,0,0,.45); }
-.show-card-photo { width: 100%; aspect-ratio: 16/9; background: #0e0b16 center/cover no-repeat;
+.show-card:hover { transform: translateY(-3px); border-color: var(--gold-soft); box-shadow: 0 12px 28px var(--shadow-hover); }
+.show-card-photo { width: 100%; aspect-ratio: 16/9; background: var(--photo-bg) center/cover no-repeat;
   display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; }
 .show-card-body { padding: 16px 18px; }
 .show-card-title { font-size: 15.5px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
@@ -187,7 +199,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
 .show-card-meta .amt { color: var(--gold); font-weight: 700; }
 
 /* Show detail */
-.show-hero { width: 100%; aspect-ratio: 21/9; border-radius: 16px; background: #0e0b16 center/cover no-repeat;
+.show-hero { width: 100%; aspect-ratio: 21/9; border-radius: 16px; background: var(--photo-bg) center/cover no-repeat;
   border: 1px solid var(--border); margin-bottom: 24px; cursor: zoom-in;
   display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; }
 .show-title-row { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
@@ -201,8 +213,8 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   text-align: center; cursor: pointer; padding: 12px 8px; border-radius: 12px;
   border: 1px solid transparent; transition: border-color .15s ease, background .15s ease;
 }
-.participant:hover { border-color: var(--gold-soft); background: rgba(255,255,255,0.03); }
-.participant-photo { width: 76px; height: 76px; border-radius: 50%; background: #0e0b16 top/cover no-repeat;
+.participant:hover { border-color: var(--gold-soft); background: var(--surface-tint); }
+.participant-photo { width: 76px; height: 76px; border-radius: 50%; background: var(--photo-bg) top/cover no-repeat;
   border: 2px solid var(--border); margin: 0 auto 10px; }
 .participant-name { font-size: 13px; font-weight: 600; color: var(--cream); }
 .participant-role { font-size: 10.5px; color: var(--gold-soft); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
@@ -221,10 +233,10 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   border: 1px solid var(--border); border-radius: 14px; padding: 24px 22px; cursor: pointer;
   transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
 }
-.charity-card:hover { transform: translateY(-3px); border-color: var(--gold-soft); box-shadow: 0 12px 28px rgba(0,0,0,.45); }
+.charity-card:hover { transform: translateY(-3px); border-color: var(--gold-soft); box-shadow: 0 12px 28px var(--shadow-hover); }
 .charity-card.upcoming-charity {
   border: 2px solid var(--upcoming-border);
-  box-shadow: 0 0 0 1px var(--upcoming-border), 0 12px 26px rgba(212,185,64,0.16);
+  box-shadow: 0 0 0 1px var(--upcoming-border), 0 12px 26px var(--upcoming-glow);
 }
 .charity-card.upcoming-charity:hover { border-color: var(--upcoming-border); }
 .charity-card-name { font-size: 17px; font-weight: 700; color: var(--cream); margin-bottom: 10px; }
@@ -243,13 +255,13 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
 .show-meta-row .show-meta-line { margin-bottom: 0; }
 .watch-vod-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(29, 23, 48, 0.85); border: 1px solid var(--gold-soft);
+  background: var(--pill-bg); border: 1px solid var(--gold-soft);
   color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
   padding: 9px 18px; border-radius: 24px; cursor: pointer;
   text-decoration: none; white-space: nowrap;
   transition: background .15s ease, transform .15s ease;
 }
-.watch-vod-btn:hover { background: rgba(29, 23, 48, 0.97); transform: translateY(-1px); }
+.watch-vod-btn:hover { background: var(--pill-bg-hover); transform: translateY(-1px); }
 .watch-vod-btn .play-tri {
   width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent;
   border-left: 8px solid var(--gold);
@@ -274,9 +286,9 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
       <p>A quick reference for every talent member who's appeared on a DNP charity stream. Click anyone to see their metrics, shows, and art.</p>
     </div>
     <div class="stats-strip">
-      <div class="stat" style="cursor:pointer" onclick="nav('directory-view')"><div class="num">23</div><div class="label">Talent</div></div>
-      <div class="stat" style="cursor:pointer" onclick="nav('shows-index-view')"><div class="num">11</div><div class="label">Shows</div></div>
-      <div class="stat" style="cursor:pointer" onclick="nav('charities-index-view')"><div class="num">6</div><div class="label">Charities</div></div>
+      <div class="stat" style="cursor:pointer" onclick="nav('directory-view')"><div class="num">20</div><div class="label">Talent</div></div>
+      <div class="stat" style="cursor:pointer" onclick="nav('shows-index-view')"><div class="num">10</div><div class="label">Shows</div></div>
+      <div class="stat" style="cursor:pointer" onclick="nav('charities-index-view')"><div class="num">5</div><div class="label">Charities</div></div>
     </div>
     <div class="grid">
       <div class="card" onclick="nav('bio-ai-candii')">
@@ -285,9 +297,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
     </div><div class="card" onclick="nav('bio-bubi')">
       <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/BubiVT')"></div>
       <div class="card-name-wrap"><div class="card-name">Bubi</div></div>
-    </div><div class="card debut-card" onclick="nav('bio-cottontailva')">
-      <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/CottontailVA')"></div>
-      <div class="card-name-wrap"><div class="card-name">CottontailVA</div><div class="debut-tag">Debut Soon</div></div>
     </div><div class="card" onclick="nav('bio-froot')">
       <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/LichVtuber')"></div>
       <div class="card-name-wrap"><div class="card-name">Froot</div></div>
@@ -309,9 +318,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
     </div><div class="card" onclick="nav('bio-kairyu-crocodile')">
       <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/KairyuCrocodile')"></div>
       <div class="card-name-wrap"><div class="card-name">Kairyu Crocodile</div></div>
-    </div><div class="card debut-card" onclick="nav('bio-mara-holmes')">
-      <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/MaraHolmes_')"></div>
-      <div class="card-name-wrap"><div class="card-name">Mara Holmes</div><div class="debut-tag">Debut Soon</div></div>
     </div><div class="card" onclick="nav('bio-matara-kan')">
       <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/MataraKan')"></div>
       <div class="card-name-wrap"><div class="card-name">Matara Kan</div></div>
@@ -321,9 +327,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
     </div><div class="card" onclick="nav('bio-michi-mochievee')">
       <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/MichiMochievee')"></div>
       <div class="card-name-wrap"><div class="card-name">Michi Mochievee</div></div>
-    </div><div class="card debut-card" onclick="nav('bio-neuro-sama')">
-      <div class="card-photo" style="background-image:url('https://unavatar.io/twitter/NeurosamaAI')"></div>
-      <div class="card-name-wrap"><div class="card-name">Neuro-sama</div><div class="debut-tag">Debut Soon</div></div>
     </div><div class="card" onclick="nav('bio-papamutt')">
       <div class="card-photo" style="background-image:url('https://static.wikia.nocookie.net/virtualyoutuber/images/5/57/Papamutt_Portrait.jpg')"></div>
       <div class="card-name-wrap"><div class="card-name">Papamutt</div></div>
@@ -418,12 +421,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
         <div class="show-card-title">One Night in Daggerheart</div>
         <div class="show-card-meta">4/28/2026 &middot; Make-A-Wish &middot; <span class="amt">$33,000</span></div>
       </div>
-    </div><div class="show-card" onclick="nav('show-the-grand-tourney-tentative-title')">
-      <div class="show-card-photo">No image yet</div>
-      <div class="show-card-body">
-        <div class="show-card-title">The Grand Tourney (tentative title) <span class="badge upcoming">Upcoming</span></div>
-        <div class="show-card-meta">9/10/2026 &middot; CALM &middot; <span class="amt">TBD</span></div>
-      </div>
     </div>
     </div>
   </div>
@@ -438,10 +435,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
       <div class="charity-card-name">BCRF</div>
       <div class="charity-card-meta"><span><b>1</b> <span class="meta-label">shows</span></span><span><b>$101,000</b> <span class="meta-label">raised</span></span></div>
       
-    </div><div class="charity-card upcoming-charity" onclick="nav('charity-calm')">
-      <div class="charity-card-name">CALM</div>
-      <div class="charity-card-meta"><span><b>1</b> <span class="meta-label">shows</span></span><span><b>TBD</b> <span class="meta-label">raised</span></span></div>
-      <div class="upcoming-tag">Upcoming</div>
     </div><div class="charity-card" onclick="nav('charity-gamers-outreach')">
       <div class="charity-card-name">Gamers Outreach</div>
       <div class="charity-card-meta"><span><b>4</b> <span class="meta-label">shows</span></span><span><b>$118,500</b> <span class="meta-label">raised</span></span></div>
@@ -494,22 +487,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/BubiVT" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">144,900</div><div class="sub">followers</div></a></div><div class="metric"><a href="https://twitch.tv/bubivt" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">116,400</div><div class="sub">followers · Not public subs</div></a></div><div class="metric"><a href="N/A" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">None</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">3</div><div class="sub">3 as player · 0 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">$21,071</div><div class="sub">avg $7,024/show</div></div></div></section>
   <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr><td>4/23/2024</td><td><a onclick="nav('show-throne-of-heresy'); return false;" href="#">Throne of Heresy</a></td><td class="role-cell">Player</td><td>Immune Deficiency Foundation</td><td>$70,000</td></tr><tr><td>4/2/2025</td><td><a onclick="nav('show-by-the-light-of-the-golden-bough'); return false;" href="#">By the Light of the Golden Bough</a></td><td class="role-cell">Player</td><td>Immune Deficiency Foundation</td><td>$39,000</td></tr><tr><td>4/28/2026</td><td><a onclick="nav('show-one-night-in-daggerheart'); return false;" href="#">One Night in Daggerheart</a></td><td class="role-cell">Player</td><td>Make-A-Wish</td><td>$33,000</td></tr></table><div class="shows-total">Total raised across these shows: <b>$142,000</b></div></section>
   <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://hololist.net/wp-content/uploads/2022/06/bubi-portrait-66.jpg" alt="Bubi artwork" loading="lazy" onclick="openLightbox('https://hololist.net/wp-content/uploads/2022/06/bubi-portrait-66.jpg')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/3/38/Ironmouses_Mascot_Bubi_Chibi_Form_Thumb.jpg" alt="Bubi artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/3/38/Ironmouses_Mascot_Bubi_Chibi_Form_Thumb.jpg')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThZtwuN8umo3BHasM1l5eAbUlavBnoFa0WGFYovcrE0ySfuAF7mn_VCZo&amp;s=10" alt="Bubi artwork" loading="lazy" onclick="openLightbox('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThZtwuN8umo3BHasM1l5eAbUlavBnoFa0WGFYovcrE0ySfuAF7mn_VCZo&amp;s=10')"><img src="https://cdnb.artstation.com/p/assets/images/images/090/838/263/large/yoolie-bubi-image-render-4.webp?1755052205" alt="Bubi artwork" loading="lazy" onclick="openLightbox('https://cdnb.artstation.com/p/assets/images/images/090/838/263/large/yoolie-bubi-image-render-4.webp?1755052205')"></div></section>
-</div><div class="page-view hidden" id="bio-cottontailva" data-parent="directory-view">
-  <div class="bio-header">
-    <div><div class="bio-photo" style="background-image:url('https://unavatar.io/twitter/CottontailVA')" onclick="openLightbox('https://unavatar.io/twitter/CottontailVA')"></div></div>
-    <div class="bio-intro">
-      <h1>CottontailVA <span class="badge upcoming">Upcoming Show</span></h1>
-      <div class="bio-role">Player (upcoming show)</div>
-      <div class="social-row"><a class="social-pill" href="https://x.com/CottontailVA" target="_blank" rel="noopener"><span class="pill-icon">X</span>@CottontailVA<span class="pill-stat"><b>626,763</b> followers</span></a><a class="social-pill" href="https://twitch.tv/cottontailva" target="_blank" rel="noopener"><span class="pill-icon">TW</span>@cottontailva<span class="pill-stat"><b>459,800</b> followers · <b>1,805</b> subs</span></a><a class="social-pill" href="https://www.youtube.com/@CottontailVA" target="_blank" rel="noopener"><span class="pill-icon">YT</span>@CottontailVA<span class="pill-stat"><b>563,000</b> subs</span></a></div>
-      
-      
-      
-      
-    </div>
-  </div>
-  <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/CottontailVA" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">626,763</div><div class="sub">followers</div></a></div><div class="metric"><a href="https://twitch.tv/cottontailva" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">459,800</div><div class="sub">followers · 1,805 subs</div></a></div><div class="metric"><a href="https://www.youtube.com/@CottontailVA" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">563,000</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">1</div><div class="sub">1 as player · 0 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">TBD</div><div class="sub">avg TBD/show</div></div></div></section>
-  <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr class="upcoming-row"><td>9/10/2026</td><td><a onclick="nav('show-the-grand-tourney-tentative-title'); return false;" href="#">The Grand Tourney (tentative title)</a> <span class="badge upcoming">Upcoming</span></td><td class="role-cell">Player</td><td>CALM</td><td>TBD</td></tr></table><div class="shows-total">Total raised across these shows: <b>TBD</b> (upcoming show(s) not yet finalized)</div></section>
-  <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/5/50/CottontailVA_Provisional.png" alt="CottontailVA artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/5/50/CottontailVA_Provisional.png')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/4/4b/CottontailVA_V3_Model.png" alt="CottontailVA artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/4/4b/CottontailVA_V3_Model.png')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/f/f7/CottontailVA_2.0_Portrait.jpg" alt="CottontailVA artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/f/f7/CottontailVA_2.0_Portrait.jpg')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/3/39/CottontailVA_Baygon_Shield_Defense_Flying_Insect_Killer.png" alt="CottontailVA artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/3/39/CottontailVA_Baygon_Shield_Defense_Flying_Insect_Killer.png')"></div></section>
 </div><div class="page-view hidden" id="bio-froot" data-parent="directory-view">
   <div class="bio-header">
     <div><div class="bio-photo" style="background-image:url('https://unavatar.io/twitter/LichVtuber')" onclick="openLightbox('https://unavatar.io/twitter/LichVtuber')"></div></div>
@@ -622,22 +599,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/KairyuCrocodile" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">75,700</div><div class="sub">followers</div></a></div><div class="metric"><a href="https://twitch.tv/kairyucrocodile" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">111,829</div><div class="sub">followers · 1,897 subs</div></a></div><div class="metric"><a href="https://www.youtube.com/@KairyuCrocodile" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">595,142</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">1</div><div class="sub">1 as player · 0 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">$5,500</div><div class="sub">avg $5,500/show</div></div></div></section>
   <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr><td>4/28/2026</td><td><a onclick="nav('show-one-night-in-daggerheart'); return false;" href="#">One Night in Daggerheart</a></td><td class="role-cell">Player</td><td>Make-A-Wish</td><td>$33,000</td></tr></table><div class="shows-total">Total raised across these shows: <b>$33,000</b></div></section>
   <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://hololist.net/wp-content/uploads/2026/01/Kairyu-Crocodile-Character-Sheet-1.jpg" alt="Kairyu Crocodile artwork" loading="lazy" onclick="openLightbox('https://hololist.net/wp-content/uploads/2026/01/Kairyu-Crocodile-Character-Sheet-1.jpg')"><img src="https://hololist.net/wp-content/uploads/2026/01/Kairyu-Crocodile-Character-Sheet-2.jpg" alt="Kairyu Crocodile artwork" loading="lazy" onclick="openLightbox('https://hololist.net/wp-content/uploads/2026/01/Kairyu-Crocodile-Character-Sheet-2.jpg')"><img src="https://merch.kawaentertainment.com/cdn/shop/collections/Listing-Beastiez-CrocCover.png" alt="Kairyu Crocodile artwork" loading="lazy" onclick="openLightbox('https://merch.kawaentertainment.com/cdn/shop/collections/Listing-Beastiez-CrocCover.png')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/4/42/Kairyu_Crocodile_Portrait.png" alt="Kairyu Crocodile artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/4/42/Kairyu_Crocodile_Portrait.png')"></div></section>
-</div><div class="page-view hidden" id="bio-mara-holmes" data-parent="directory-view">
-  <div class="bio-header">
-    <div><div class="bio-photo" style="background-image:url('https://unavatar.io/twitter/MaraHolmes_')" onclick="openLightbox('https://unavatar.io/twitter/MaraHolmes_')"></div></div>
-    <div class="bio-intro">
-      <h1>Mara Holmes <span class="badge upcoming">Upcoming Show</span></h1>
-      <div class="bio-role">GM (upcoming show)</div>
-      <div class="social-row"><a class="social-pill" href="https://x.com/MaraHolmes_" target="_blank" rel="noopener"><span class="pill-icon">X</span>@MaraHolmes_<span class="pill-stat"><b>77,100</b> followers</span></a><a class="social-pill" href="https://twitch.tv/MaraBunny" target="_blank" rel="noopener"><span class="pill-icon">TW</span>@MaraBunny<span class="pill-stat"><b>23,654</b> followers · <b>Not public</b> subs</span></a><a class="social-pill" href="https://www.youtube.com/channel/UCTISUtpRFMMkqth9O9nU40w" target="_blank" rel="noopener"><span class="pill-icon">YT</span>@Mara Holmes<span class="pill-stat"><b>51,400</b> subs</span></a></div>
-      
-      
-      
-      
-    </div>
-  </div>
-  <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/MaraHolmes_" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">77,100</div><div class="sub">followers</div></a></div><div class="metric"><a href="https://twitch.tv/MaraBunny" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">23,654</div><div class="sub">followers · Not public subs</div></a></div><div class="metric"><a href="https://www.youtube.com/channel/UCTISUtpRFMMkqth9O9nU40w" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">51,400</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">1</div><div class="sub">0 as player · 1 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">TBD</div><div class="sub">avg TBD/show</div></div></div></section>
-  <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr class="upcoming-row"><td>9/10/2026</td><td><a onclick="nav('show-the-grand-tourney-tentative-title'); return false;" href="#">The Grand Tourney (tentative title)</a> <span class="badge upcoming">Upcoming</span></td><td class="role-cell">GM</td><td>CALM</td><td>TBD</td></tr></table><div class="shows-total">Total raised across these shows: <b>TBD</b> (upcoming show(s) not yet finalized)</div></section>
-  <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://static.wikitide.net/criticalrolewiki/4/48/MaraHulmes.png" alt="Mara Holmes artwork" loading="lazy" onclick="openLightbox('https://static.wikitide.net/criticalrolewiki/4/48/MaraHulmes.png')"><img src="https://cdn.bsky.app/img/banner/plain/did:plc:6ewl5dtb2cydbceyxpvrpgpm/bafkreiggdxjne3tqtfkc3ruxivlyyfvlomek4c4qjhf7ssfioa3g4hmubu" alt="Mara Holmes artwork" loading="lazy" onclick="openLightbox('https://cdn.bsky.app/img/banner/plain/did:plc:6ewl5dtb2cydbceyxpvrpgpm/bafkreiggdxjne3tqtfkc3ruxivlyyfvlomek4c4qjhf7ssfioa3g4hmubu')" style="object-position: right top;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXVpsVcHGxV_c56V_ktkcqRRqC8oG4taAMWX1ZRO7dPtGi7x3GZDk9wQ8&amp;s=10" alt="Mara Holmes artwork" loading="lazy" onclick="openLightbox('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXVpsVcHGxV_c56V_ktkcqRRqC8oG4taAMWX1ZRO7dPtGi7x3GZDk9wQ8&amp;s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPB2J4p531BpZT32JuK6xZm_vyzbkQSoAHxmjs7-60nDVZFQxqmAqTYqc&amp;s=10" alt="Mara Holmes artwork" loading="lazy" onclick="openLightbox('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPB2J4p531BpZT32JuK6xZm_vyzbkQSoAHxmjs7-60nDVZFQxqmAqTYqc&amp;s=10')"></div></section>
 </div><div class="page-view hidden" id="bio-matara-kan" data-parent="directory-view">
   <div class="bio-header">
     <div><div class="bio-photo" style="background-image:url('https://unavatar.io/twitter/MataraKan')" onclick="openLightbox('https://unavatar.io/twitter/MataraKan')"></div></div>
@@ -686,22 +647,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/MichiMochievee" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">158,000</div><div class="sub">followers</div></a></div><div class="metric"><a href="https://twitch.tv/michimochievee" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">249,700</div><div class="sub">followers · Not public subs</div></a></div><div class="metric"><a href="https://www.youtube.com/@MichiMochievee" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">223,749</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">1</div><div class="sub">1 as player · 0 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">$6,750</div><div class="sub">avg $6,750/show</div></div></div></section>
   <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr><td>6/27/2025</td><td><a onclick="nav('show-shipwrecked-2-buccaneer-bugaloo'); return false;" href="#">Shipwrecked 2: Buccaneer Bugaloo</a></td><td class="role-cell">Player</td><td>Gamers Outreach</td><td>$27,000</td></tr></table><div class="shows-total">Total raised across these shows: <b>$27,000</b></div></section>
   <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/4a1e0bea-5fd4-474b-9953-afe1eff6e5ea-profile_image-300x300.png" alt="Michi Mochievee artwork" loading="lazy" onclick="openLightbox('https://static-cdn.jtvnw.net/jtv_user_pictures/4a1e0bea-5fd4-474b-9953-afe1eff6e5ea-profile_image-300x300.png')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/f/f9/Michi_Mochievee_profile.png" alt="Michi Mochievee artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/f/f9/Michi_Mochievee_profile.png')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/a/aa/Mochifullbody.jpg" alt="Michi Mochievee artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/a/aa/Mochifullbody.jpg')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/9/95/Michi_Mochievee_Fourth_Outfit.png" alt="Michi Mochievee artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/9/95/Michi_Mochievee_Fourth_Outfit.png')"></div></section>
-</div><div class="page-view hidden" id="bio-neuro-sama" data-parent="directory-view">
-  <div class="bio-header">
-    <div><div class="bio-photo" style="background-image:url('https://unavatar.io/twitter/NeurosamaAI')" onclick="openLightbox('https://unavatar.io/twitter/NeurosamaAI')"></div></div>
-    <div class="bio-intro">
-      <h1>Neuro-sama <span class="badge upcoming">Upcoming Show</span></h1>
-      <div class="bio-role">Player (upcoming show)</div>
-      <div class="social-row"><a class="social-pill" href="https://x.com/NeurosamaAI" target="_blank" rel="noopener"><span class="pill-icon">X</span>@NeurosamaAI<span class="pill-stat"><b>255,900</b> followers</span></a><a class="social-pill" href="https://twitch.tv/vedal987" target="_blank" rel="noopener"><span class="pill-icon">TW</span>@vedal987<span class="pill-stat"><b>1,010,000</b> followers · <b>160,000</b> subs</span></a><a class="social-pill" href="https://www.youtube.com/channel/UCLHmLrj4pHHg3-iBJn_CqxA" target="_blank" rel="noopener"><span class="pill-icon">YT</span>@Neuro-sama<span class="pill-stat"><b>909,187</b> subs</span></a></div>
-      
-      
-      
-      
-    </div>
-  </div>
-  <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/NeurosamaAI" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">255,900</div><div class="sub">followers</div></a></div><div class="metric"><a href="https://twitch.tv/vedal987" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">1,010,000</div><div class="sub">followers · 160,000 subs</div></a></div><div class="metric"><a href="https://www.youtube.com/channel/UCLHmLrj4pHHg3-iBJn_CqxA" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">909,187</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">1</div><div class="sub">1 as player · 0 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">TBD</div><div class="sub">avg TBD/show</div></div></div></section>
-  <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr class="upcoming-row"><td>9/10/2026</td><td><a onclick="nav('show-the-grand-tourney-tentative-title'); return false;" href="#">The Grand Tourney (tentative title)</a> <span class="badge upcoming">Upcoming</span></td><td class="role-cell">Player</td><td>CALM</td><td>TBD</td></tr></table><div class="shows-total">Total raised across these shows: <b>TBD</b> (upcoming show(s) not yet finalized)</div></section>
-  <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://vedal.ai/img/models/neuro-smug-look-left.png" alt="Neuro-sama artwork" loading="lazy" onclick="openLightbox('https://vedal.ai/img/models/neuro-smug-look-left.png')"><img src="https://static.wikia.nocookie.net/neurosama/images/e/ea/NeuroV3Full.png/revision/latest/scale-to-width/360?cb=20250724175847" alt="Neuro-sama artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/neurosama/images/e/ea/NeuroV3Full.png/revision/latest/scale-to-width/360?cb=20250724175847')"><img src="https://static.wikia.nocookie.net/neurosama/images/6/6b/Neuro_cyberpunk_princess_full_model.png/revision/latest/scale-to-width/360?cb=20260313192001" alt="Neuro-sama artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/neurosama/images/6/6b/Neuro_cyberpunk_princess_full_model.png/revision/latest/scale-to-width/360?cb=20260313192001')"><img src="https://preview.redd.it/i-made-some-neuro-and-evil-transparent-images-v0-x3gnyx4jm53f1.png?width=640&amp;crop=smart&amp;auto=webp&amp;s=8ddae690a84bb18ee55ad9d066b3eba858f556c4" alt="Neuro-sama artwork" loading="lazy" onclick="openLightbox('https://preview.redd.it/i-made-some-neuro-and-evil-transparent-images-v0-x3gnyx4jm53f1.png?width=640&amp;crop=smart&amp;auto=webp&amp;s=8ddae690a84bb18ee55ad9d066b3eba858f556c4')"></div></section>
 </div><div class="page-view hidden" id="bio-papamutt" data-parent="directory-view">
   <div class="bio-header">
     <div><div class="bio-photo" style="background-image:url('https://static.wikia.nocookie.net/virtualyoutuber/images/5/57/Papamutt_Portrait.jpg')" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/5/57/Papamutt_Portrait.jpg')"></div></div>
@@ -818,7 +763,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
   <div class="bio-header">
     <div><div class="bio-photo" style="background-image:url('https://unavatar.io/twitter/zentreya')" onclick="openLightbox('https://unavatar.io/twitter/zentreya')"></div></div>
     <div class="bio-intro">
-      <h1>Zentreya <span class="badge upcoming">Upcoming Show</span></h1>
+      <h1>Zentreya</h1>
       <div class="bio-role">Player</div>
       <div class="social-row"><a class="social-pill" href="https://x.com/zentreya" target="_blank" rel="noopener"><span class="pill-icon">X</span>@zentreya<span class="pill-stat"><b>590,800</b> followers</span></a><a class="social-pill" href="https://twitch.tv/zentreya" target="_blank" rel="noopener"><span class="pill-icon">TW</span>@zentreya<span class="pill-stat"><b>613,464</b> followers · <b>2,958</b> subs</span></a><a class="social-pill" href="https://www.youtube.com/@Zentreya" target="_blank" rel="noopener"><span class="pill-icon">YT</span>@Zentreya<span class="pill-stat"><b>472,514</b> subs</span></a></div>
       
@@ -828,7 +773,7 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
     </div>
   </div>
   <section class="panel"><h2>Metrics</h2><div class="metrics-grid"><div class="metric"><a href="https://x.com/zentreya" target="_blank" rel="noopener"><div class="platform">X / Twitter</div><div class="value">590,800</div><div class="sub">followers</div></a></div><div class="metric"><a href="https://twitch.tv/zentreya" target="_blank" rel="noopener"><div class="platform">Twitch</div><div class="value">613,464</div><div class="sub">followers · 2,958 subs</div></a></div><div class="metric"><a href="https://www.youtube.com/@Zentreya" target="_blank" rel="noopener"><div class="platform">YouTube</div><div class="value">472,514</div><div class="sub">subscribers</div></a></div><div class="metric"><div class="platform">Total Shows</div><div class="value">7</div><div class="sub">7 as player · 0 as GM</div></div><div class="metric"><div class="platform">Est. Total Raised</div><div class="value">$46,571</div><div class="sub">avg $6,653/show</div></div></div></section>
-  <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr><td>10/30/2023</td><td><a onclick="nav('show-akashan-the-dread-carnival'); return false;" href="#">Akashan: The Dread Carnival</a></td><td class="role-cell">Player</td><td>Gamers Outreach</td><td>$27,500</td></tr><tr><td>4/23/2024</td><td><a onclick="nav('show-throne-of-heresy'); return false;" href="#">Throne of Heresy</a></td><td class="role-cell">Player</td><td>Immune Deficiency Foundation</td><td>$70,000</td></tr><tr><td>6/26/2024</td><td><a onclick="nav('show-shipwrekt'); return false;" href="#">ShipWrekt</a></td><td class="role-cell">Player</td><td>Gamers Outreach</td><td>$32,000</td></tr><tr><td>10/11/2024</td><td><a onclick="nav('show-ghouls-geckos'); return false;" href="#">Ghouls &amp; Geckos</a></td><td class="role-cell">Player</td><td>St. Jude Children&#x27;s Research Hospital</td><td>$41,000</td></tr><tr><td>12/20/2024</td><td><a onclick="nav('show-dice-hard'); return false;" href="#">Dice Hard</a></td><td class="role-cell">Player</td><td>Gamers Outreach</td><td>$32,000</td></tr><tr><td>4/2/2025</td><td><a onclick="nav('show-by-the-light-of-the-golden-bough'); return false;" href="#">By the Light of the Golden Bough</a></td><td class="role-cell">Player</td><td>Immune Deficiency Foundation</td><td>$39,000</td></tr><tr><td>8/30/2025</td><td><a onclick="nav('show-the-maltese-gecko'); return false;" href="#">The Maltese Gecko</a></td><td class="role-cell">Player</td><td>Make-A-Wish</td><td>$31,000</td></tr><tr class="upcoming-row"><td>9/10/2026</td><td><a onclick="nav('show-the-grand-tourney-tentative-title'); return false;" href="#">The Grand Tourney (tentative title)</a> <span class="badge upcoming">Upcoming</span></td><td class="role-cell">Player</td><td>CALM</td><td>TBD</td></tr></table><div class="shows-total">Total raised across these shows: <b>$272,500</b> (plus at least one upcoming show still TBD)</div></section>
+  <section class="panel"><h2>Shows</h2><table class="shows-table"><tr><th>Date</th><th>Show</th><th>Role</th><th>Charity</th><th>Raised</th></tr><tr><td>10/30/2023</td><td><a onclick="nav('show-akashan-the-dread-carnival'); return false;" href="#">Akashan: The Dread Carnival</a></td><td class="role-cell">Player</td><td>Gamers Outreach</td><td>$27,500</td></tr><tr><td>4/23/2024</td><td><a onclick="nav('show-throne-of-heresy'); return false;" href="#">Throne of Heresy</a></td><td class="role-cell">Player</td><td>Immune Deficiency Foundation</td><td>$70,000</td></tr><tr><td>6/26/2024</td><td><a onclick="nav('show-shipwrekt'); return false;" href="#">ShipWrekt</a></td><td class="role-cell">Player</td><td>Gamers Outreach</td><td>$32,000</td></tr><tr><td>10/11/2024</td><td><a onclick="nav('show-ghouls-geckos'); return false;" href="#">Ghouls &amp; Geckos</a></td><td class="role-cell">Player</td><td>St. Jude Children&#x27;s Research Hospital</td><td>$41,000</td></tr><tr><td>12/20/2024</td><td><a onclick="nav('show-dice-hard'); return false;" href="#">Dice Hard</a></td><td class="role-cell">Player</td><td>Gamers Outreach</td><td>$32,000</td></tr><tr><td>4/2/2025</td><td><a onclick="nav('show-by-the-light-of-the-golden-bough'); return false;" href="#">By the Light of the Golden Bough</a></td><td class="role-cell">Player</td><td>Immune Deficiency Foundation</td><td>$39,000</td></tr><tr><td>8/30/2025</td><td><a onclick="nav('show-the-maltese-gecko'); return false;" href="#">The Maltese Gecko</a></td><td class="role-cell">Player</td><td>Make-A-Wish</td><td>$31,000</td></tr></table><div class="shows-total">Total raised across these shows: <b>$272,500</b></div></section>
   <section class="panel"><h2>Gallery &amp; Media</h2><div class="gallery"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/8/82/Full_Form_Dragon_Zentreya.jpg" alt="Zentreya artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/8/82/Full_Form_Dragon_Zentreya.jpg')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/9/9d/ZentreyaValentines2026.png" alt="Zentreya artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/9/9d/ZentreyaValentines2026.png')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/8/8b/ChibiZenDragon2026.png" alt="Zentreya artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/8/8b/ChibiZenDragon2026.png')"><img src="https://static.wikia.nocookie.net/virtualyoutuber/images/c/c2/TrueDragonFormZentreya.png" alt="Zentreya artwork" loading="lazy" onclick="openLightbox('https://static.wikia.nocookie.net/virtualyoutuber/images/c/c2/TrueDragonFormZentreya.png')"></div></section>
 </div>
   <div class="page-view hidden" id="show-akashan-the-dread-carnival" data-parent="shows-index-view">
@@ -1229,39 +1174,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
             </div></div>
     </div>
   </section>
-</div><div class="page-view hidden" id="show-the-grand-tourney-tentative-title" data-parent="shows-index-view">
-  <div class="show-hero">No promotional art found for this show yet</div>
-  <div class="show-title-row"><h1>The Grand Tourney (tentative title) <span class="badge upcoming">Upcoming</span></h1></div>
-  <div class="show-meta-row">
-    <div class="show-meta-line">9/10/2026 &middot; <span class="meta-label">benefiting</span> <a onclick="nav('charity-calm'); return false;" href="#">CALM</a> &middot; <span class="amt">TBD</span> <span class="meta-label">raised</span></div>
-    
-  </div>
-  <section class="panel">
-    <h2>Talent</h2>
-    <div class="participant-group">
-      <div class="participant-group-label">Game Master</div>
-      <div class="participant-grid"><div class="participant" onclick="nav('bio-mara-holmes')">
-              <div class="participant-photo" style="background-image:url('https://unavatar.io/twitter/MaraHolmes_')"></div>
-              <div class="participant-name">Mara Holmes</div>
-              <div class="participant-role">GM</div>
-            </div></div>
-    </div><div class="participant-group">
-      <div class="participant-group-label">Cast</div>
-      <div class="participant-grid"><div class="participant" onclick="nav('bio-cottontailva')">
-              <div class="participant-photo" style="background-image:url('https://unavatar.io/twitter/CottontailVA')"></div>
-              <div class="participant-name">CottontailVA</div>
-              <div class="participant-role">Player</div>
-            </div><div class="participant" onclick="nav('bio-neuro-sama')">
-              <div class="participant-photo" style="background-image:url('https://unavatar.io/twitter/NeurosamaAI')"></div>
-              <div class="participant-name">Neuro-sama</div>
-              <div class="participant-role">Player</div>
-            </div><div class="participant" onclick="nav('bio-zentreya')">
-              <div class="participant-photo" style="background-image:url('https://unavatar.io/twitter/zentreya')"></div>
-              <div class="participant-name">Zentreya</div>
-              <div class="participant-role">Player</div>
-            </div></div>
-    </div>
-  </section>
 </div>
   <div class="page-view hidden" id="charity-bcrf" data-parent="charities-index-view">
   <div class="section-header" style="text-align:left; margin-bottom:24px;">
@@ -1276,21 +1188,6 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
           <div class="show-card-body">
             <div class="show-card-title">Death in the Death House</div>
             <div class="show-card-meta">10/30/2025 &middot; <span class="amt">$101,000</span></div>
-          </div>
-        </div></div>
-</div><div class="page-view hidden" id="charity-calm" data-parent="charities-index-view">
-  <div class="section-header" style="text-align:left; margin-bottom:24px;">
-    <h1 style="margin-bottom:4px;">CALM</h1>
-  </div>
-  <div class="charity-detail-stats">
-    <div class="stat"><div class="num">1</div><div class="label">Shows</div></div>
-    <div class="stat"><div class="num">TBD</div><div class="label">Raised</div></div>
-  </div>
-  <div class="show-grid"><div class="show-card" onclick="nav('show-the-grand-tourney-tentative-title')">
-          <div class="show-card-photo">No image yet</div>
-          <div class="show-card-body">
-            <div class="show-card-title">The Grand Tourney (tentative title) <span class="badge upcoming">Upcoming</span></div>
-            <div class="show-card-meta">9/10/2026 &middot; <span class="amt">TBD</span></div>
           </div>
         </div></div>
 </div><div class="page-view hidden" id="charity-gamers-outreach" data-parent="charities-index-view">
@@ -1397,9 +1294,9 @@ footer.site-footer { text-align: center; color: var(--muted); font-size: 11.5px;
 </div>
 
 <script>
-var TALENT_ORDER = ["ai-candii", "bubi", "cottontailva", "froot", "geega", "grimmivt", "haruka-karibu", "ironmouse", "k9kuro", "kairyu-crocodile", "mara-holmes", "matara-kan", "matt-mercer", "michi-mochievee", "neuro-sama", "papamutt", "projekt-melody", "pumpkin-potion", "spite", "tim-downie", "tormentedbygnomes", "vexoria-the-sun-eater", "zentreya"];
-var SHOW_ORDER = ["akashan-the-dread-carnival", "throne-of-heresy", "shipwrekt", "ghouls-geckos", "dice-hard", "by-the-light-of-the-golden-bough", "shipwrecked-2-buccaneer-bugaloo", "the-maltese-gecko", "death-in-the-death-house", "one-night-in-daggerheart", "the-grand-tourney-tentative-title"];
-var CHARITY_ORDER = ["bcrf", "calm", "gamers-outreach", "immune-deficiency-foundation", "make-a-wish", "st-jude-children-s-research-hospital"];
+var TALENT_ORDER = ["ai-candii", "bubi", "froot", "geega", "grimmivt", "haruka-karibu", "ironmouse", "k9kuro", "kairyu-crocodile", "matara-kan", "matt-mercer", "michi-mochievee", "papamutt", "projekt-melody", "pumpkin-potion", "spite", "tim-downie", "tormentedbygnomes", "vexoria-the-sun-eater", "zentreya"];
+var SHOW_ORDER = ["akashan-the-dread-carnival", "throne-of-heresy", "shipwrekt", "ghouls-geckos", "dice-hard", "by-the-light-of-the-golden-bough", "shipwrecked-2-buccaneer-bugaloo", "the-maltese-gecko", "death-in-the-death-house", "one-night-in-daggerheart"];
+var CHARITY_ORDER = ["bcrf", "gamers-outreach", "immune-deficiency-foundation", "make-a-wish", "st-jude-children-s-research-hospital"];
 
 var TOP_LEVEL = ["directory-view", "shows-index-view", "charities-index-view"];
 
